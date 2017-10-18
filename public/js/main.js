@@ -34,24 +34,28 @@ function inicializaCronometro() {
             tempoRestante--;
             $("#tempo-segundos").text(tempoRestante);
             if (tempoRestante < 1) {
-                campo.attr("disabled", true);
-                campo.addClass("campo-desativado");
                 clearInterval(cronoId);
+                finalizaJogo();
             }
         }, 1000);
     });
 }
-function inicializaMarcadores(){
+
+function inicializaMarcadores() {
     var frase = $(".frase").text();
     campo.on("input", function () {
         var digitado = campo.val();
         var comparavel = frase.substr(0, digitado.length);
+        console.log('------------------------------------');
+        console.log(digitado);
+        console.log(comparavel);
+        console.log('------------------------------------');
         if (digitado === comparavel) {
-            campo.addClass("botao-verde");
-            campo.removeClass("botao-vermelho");
+            campo.addClass("borda-verde");
+            campo.removeClass("borda-vermelha");
         } else {
-            campo.addClass("botao-vermelho");
-            campo.removeClass("botao-verde");
+            campo.addClass("borda-vermelha");
+            campo.removeClass("borda-verde");
         }
     });
 }
@@ -64,9 +68,44 @@ function reiniciaJogo() {
         $("#contador-palavras").text(0);
         $("#contador-caracteres").text(0);
         campo.removeClass("campo-desativado");
-        campo.removeClass("botao-verde");
-        campo.removeClass("botao-vermelho");
+        campo.removeClass("borda-verde");
+        campo.removeClass("borda-vermelha");
         inicializaCronometro();
     }
+}
+
+function inserePlacar() {
+    var corpoTabela = $(".placar").find("tbody");
+    var numPalavras = $("#contador-palavras").text();
+    var usuario = "Augusto Teste";
+    var linha = novaLinha(usuario, numPalavras);
+    linha.find(".botao-remover").click(removeLinha);
+    corpoTabela.prepend(linha);
+}
+
+function novaLinha(usuario, numPalavras) {
+    var linha = $("<tr>");
+    var colunaUsuario = $("<td>").text(usuario);
+    var colunaNumPalavras = $("<td>").text(numPalavras);
+    var colunaRemover = $("<td>");
+    var link = $("<a>").addClass("botao-remover").attr("href","#");
+    var icone = $("<i>").addClass("small").addClass("material-icons").text("delete");
+    link.append(icone);     
+    colunaRemover.append(link);
+    linha.append(colunaUsuario);
+    linha.append(colunaNumPalavras)
+    linha.append(colunaRemover);
+    return linha;
+}
+
+function removeLinha(){
+    event.preventDefault();
+    $(this).parent().parent().remove();
+
+}
+function finalizaJogo() {
+    campo.attr("disabled", true);
+    campo.toggleClass("campo-desativado");
+    inserePlacar();
 }
 $("#botao-reiniciar").click(reiniciaJogo());
