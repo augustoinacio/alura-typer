@@ -1,6 +1,5 @@
 var tempoInicial = $("#tempo-segundos").text();
 var campo = $(".campo-digitacao");
-
 $(function () {
     atualizaTamanhoFrase();
     inicializaContadores();
@@ -9,14 +8,12 @@ $(function () {
     $("#botao-reiniciar").click(reiniciaJogo());
 
 });
-
 function atualizaTamanhoFrase() {
     var frase = $(".frase").text();
     var numPalavras = frase.split(" ").length;
     var tamanhoFrase = $("#tamanho-frase");
     tamanhoFrase.text(numPalavras);
 }
-
 function inicializaContadores() {
     campo.on("input", function () {
         var conteudo = campo.val();
@@ -26,7 +23,6 @@ function inicializaContadores() {
         $("#contador-caracteres").text(quantCaracteres);
     });
 }
-
 function inicializaCronometro() {
     var tempoRestante = $("#tempo-segundos").text();
     campo.one("focus", function () {
@@ -40,7 +36,6 @@ function inicializaCronometro() {
         }, 1000);
     });
 }
-
 function inicializaMarcadores() {
     var frase = $(".frase").text();
     campo.on("input", function () {
@@ -59,7 +54,6 @@ function inicializaMarcadores() {
         }
     });
 }
-
 function reiniciaJogo() {
     return function () {
         campo.attr("disabled", false);
@@ -72,36 +66,6 @@ function reiniciaJogo() {
         campo.removeClass("borda-vermelha");
         inicializaCronometro();
     }
-}
-
-function inserePlacar() {
-    var corpoTabela = $(".placar").find("tbody");
-    var numPalavras = $("#contador-palavras").text();
-    var usuario = "Augusto Teste";
-    var linha = novaLinha(usuario, numPalavras);
-    linha.find(".botao-remover").click(removeLinha);
-    corpoTabela.prepend(linha);
-}
-
-function novaLinha(usuario, numPalavras) {
-    var linha = $("<tr>");
-    var colunaUsuario = $("<td>").text(usuario);
-    var colunaNumPalavras = $("<td>").text(numPalavras);
-    var colunaRemover = $("<td>");
-    var link = $("<a>").addClass("botao-remover").attr("href","#");
-    var icone = $("<i>").addClass("small").addClass("material-icons").text("delete");
-    link.append(icone);     
-    colunaRemover.append(link);
-    linha.append(colunaUsuario);
-    linha.append(colunaNumPalavras)
-    linha.append(colunaRemover);
-    return linha;
-}
-
-function removeLinha(){
-    event.preventDefault();
-    $(this).parent().parent().remove();
-
 }
 function finalizaJogo() {
     campo.attr("disabled", true);
