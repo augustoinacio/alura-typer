@@ -1,20 +1,32 @@
-.frase{
+.frase {
     font-size: 20px;
 }
-.campo-digitacao{
+
+.campo-digitacao {
     font-size: 20px;
     height: 130px;
 }
-.campo-desativado{
+
+.campo-desativado {
     background-color: lightgray;
 }
-.icones{
+
+.icones {
     vertical-align: middle;
 }
 
-.borda-vermelha{
+.borda-vermelha {
     border: 3px solid red;
 }
-.borda-verde{
+
+.borda-verde {
     border: 3px solid green;
+}
+
+.placar {
+    display: none;
+}
+
+body{
+    overflow: scroll;
 }
