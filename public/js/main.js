@@ -8,12 +8,7 @@ $(function () {
     $("#botao-reiniciar").click(reiniciaJogo());
 
 });
-function atualizaTamanhoFrase() {
-    var frase = $(".frase").text();
-    var numPalavras = frase.split(" ").length;
-    var tamanhoFrase = $("#tamanho-frase");
-    tamanhoFrase.text(numPalavras);
-}
+
 function inicializaContadores() {
     campo.on("input", function () {
         var conteudo = campo.val();
@@ -24,8 +19,8 @@ function inicializaContadores() {
     });
 }
 function inicializaCronometro() {
-    var tempoRestante = $("#tempo-segundos").text();
     campo.one("focus", function () {
+        var tempoRestante = $("#tempo-segundos").text();
         var cronoId = setInterval(function () {
             tempoRestante--;
             $("#tempo-segundos").text(tempoRestante);
@@ -37,14 +32,16 @@ function inicializaCronometro() {
     });
 }
 function inicializaMarcadores() {
-    var frase = $(".frase").text();
     campo.on("input", function () {
+        var frase = $(".frase").text();
         var digitado = campo.val();
         var comparavel = frase.substr(0, digitado.length);
+        /*
         console.log('------------------------------------');
         console.log(digitado);
         console.log(comparavel);
         console.log('------------------------------------');
+        */
         if (digitado === comparavel) {
             campo.addClass("borda-verde");
             campo.removeClass("borda-vermelha");

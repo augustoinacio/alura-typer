@@ -34,14 +34,17 @@ function novaLinha(usuario, numPalavras) {
 }
 
 function removeLinha() {
+    console.log('chegou aqui');
     event.preventDefault();
     var linha = $(this).parent().parent();
+    console.log('Removendo linha: ' + linha); 
     linha.fadeOut(1000);
     setTimeout(function () {
         linha.remove();
-    }, 1000)
+    }, 1000);
 }
 
 function mostraPlacar() {
-    $(".placar").stop().slideToggle(600);
+    //$(".placar").css("display","block");
+    $(".placar").stop().slideToggle(1200);
 }
